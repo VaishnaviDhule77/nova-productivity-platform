@@ -6,10 +6,14 @@ export function Starfield({ density = 130, className = "" }: { density?: number;
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvasEl = ref.current;
-    if (canvasEl === null) return;
-    const ctx = canvasEl.getContext("2d");
-    if (ctx === null) return;
+    const maybeCanvas = ref.current;
+    if (maybeCanvas === null) return;
+    const maybeCtx = maybeCanvas.getContext("2d");
+    if (maybeCtx === null) return;
+
+    // Non-null aliases — safe to use inside every function below
+    const canvasEl: HTMLCanvasElement = maybeCanvas;
+    const ctx: CanvasRenderingContext2D = maybeCtx;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);

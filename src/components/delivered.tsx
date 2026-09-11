@@ -29,10 +29,14 @@ function ConfettiBurst({ trigger }: { trigger: number }) {
   useEffect(() => {
     if (!trigger) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const canvasEl = ref.current;
-    if (canvasEl === null) return;
-    const ctx = canvasEl.getContext("2d");
-    if (ctx === null) return;
+    const maybeCanvas = ref.current;
+    if (maybeCanvas === null) return;
+    const maybeCtx = maybeCanvas.getContext("2d");
+    if (maybeCtx === null) return;
+
+    // Non-null aliases — safe inside the animation function below
+    const canvasEl: HTMLCanvasElement = maybeCanvas;
+    const ctx: CanvasRenderingContext2D = maybeCtx;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const W = window.innerWidth;

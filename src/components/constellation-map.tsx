@@ -53,7 +53,7 @@ export function ConstellationMap({ projects, memberTasks }: {
         memberMap.set(m.id, cur);
       }
     }
-    const members = [...memberMap.values()];
+   const members = Array.from(memberMap.values());
     const mr = members.length ? Math.min(290, 185 + members.length * 14) : 0;
     const memberNodes = members.map((m, i) => {
       const a = ((i * 360) / Math.max(members.length, 1) + 28) * (Math.PI / 180);
